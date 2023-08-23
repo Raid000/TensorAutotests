@@ -1,4 +1,6 @@
 import json
+
+from allure_commons._allure import step
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -21,6 +23,7 @@ class YandexHome:
                 driver.add_cookie(i)
             driver.refresh()
 
+    @step("Ввод данных в строку поиска")
     def search_typing(self, query):
         search_input = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located((By.XPATH, self.search_input_xpath))
@@ -43,6 +46,7 @@ class YandexHome:
             EC.visibility_of_element_located((By.XPATH, self.suggest_table_xpath))
         )
 
+    @step("Начать поиск результатов в Yandex")
     def search_enter(self):
         search_input = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located((By.XPATH, self.search_input_xpath))
@@ -54,6 +58,7 @@ class YandexHome:
             EC.visibility_of_element_located((By.XPATH, self.services_menu_xpath))
         )
 
+    @step('Открытие сервиса "Картинки"')
     def open_image_service(self):
         services_menu = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located((By.XPATH, self.services_menu_xpath))

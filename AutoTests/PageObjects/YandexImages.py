@@ -1,6 +1,9 @@
+from _pytest.fixtures import fixture
+from allure_commons._allure import step
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import pytest
 
 
 class YandexImageCategories:
@@ -31,6 +34,7 @@ class YandexImages:
             (By.XPATH, self.search_field_xpath))
         )
 
+    @step("Выбор изображения по его порядку - Id")
     def choose_image_by_id(self, Id):
         list_of_images = WebDriverWait(self.driver, 10).until(EC.visibility_of_any_elements_located(
             (By.XPATH, self.list_of_images_xpath))
@@ -55,12 +59,14 @@ class YandexImageViewer:
             (By.XPATH, self.image_viewer_xpath))
         )
 
+    @step("Переход к следующему изображению")
     def next_image(self):
         next_image_button = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(
             (By.XPATH, self.next_image_button_xpath))
         )
         next_image_button.click()
 
+    @step("Переход к предыдущему изображению")
     def previous_image(self):
         previous_image_button = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(
             (By.XPATH, self.previous_image_button_xpath))
